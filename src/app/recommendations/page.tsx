@@ -69,7 +69,7 @@ export default function RecommendationsPage() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ useCache, limit: 5 }) // Limit to 5 products for faster generation
+        body: JSON.stringify({ useCache, limit: 2 }) // Limit to 2 products for faster generation
       })
       const data = await response.json()
       

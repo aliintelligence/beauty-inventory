@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     // Get request body to check for options
     const body = await request.json().catch(() => ({}))
     const useCache = body.useCache !== false // Default to using cache
-    const limit = body.limit || 10 // Limit products to scrape
+    const limit = body.limit || 3 // Limit products to scrape
     
     const engine = new RecommendationEngine()
     

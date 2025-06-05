@@ -21,10 +21,10 @@ export class ScraperManager {
 
   constructor(config: Partial<ScrapingConfig> = {}) {
     this.config = {
-      useRealScrapers: process.env.NODE_ENV === 'production' || process.env.USE_REAL_SCRAPERS === 'true',
-      maxRetries: parseInt(process.env.SCRAPER_MAX_RETRIES || '3'),
+      useRealScrapers: false, // Always use mock scrapers for now to avoid timeouts
+      maxRetries: parseInt(process.env.SCRAPER_MAX_RETRIES || '2'),
       concurrentLimit: 2,
-      rateLimitMs: parseInt(process.env.SCRAPER_RATE_LIMIT_MS || '5000'),
+      rateLimitMs: parseInt(process.env.SCRAPER_RATE_LIMIT_MS || '1000'),
       enableFallback: true,
       ...config
     }
@@ -126,9 +126,9 @@ export class ScraperManager {
       try {
         console.log(`🔄 ${platform} scraping attempt ${attempt}/${this.config.maxRetries}`)
         
-        // Add timeout protection (15 seconds per attempt)
+        // Add timeout protection (8 seconds per attempt)
         const timeoutPromise = new Promise<ScrapingResult>((_, reject) => {
-          setTimeout(() => reject(new Error(`${platform} scraping timeout`)), 15000)
+          setTimeout(() => reject(new Error(`${platform} scraping timeout`)), 8000)
         })
         
         const scrapePromise = scraper.scrapeProducts(keywords)

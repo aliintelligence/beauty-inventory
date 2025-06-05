@@ -13,7 +13,7 @@ export class RecommendationEngine {
 
   async generateRecommendations(options: { limit?: number } = {}): Promise<ProductRecommendation[]> {
     console.log('🚀 Starting recommendation generation process...')
-    const limit = options.limit || 5 // Default to 5 products to prevent timeout
+    const limit = options.limit || 3 // Reduce to 3 products to prevent timeout
     
     try {
       // Step 1: Analyze best-selling products
@@ -26,7 +26,7 @@ export class RecommendationEngine {
       }
       
       // Limit best sellers to prevent timeout
-      const limitedBestSellers = bestSellers.slice(0, Math.min(limit, 3))
+      const limitedBestSellers = bestSellers.slice(0, Math.min(limit, 2))
       console.log(`📦 Processing top ${limitedBestSellers.length} best sellers`)
       
       // Step 2: Extract keywords from best sellers
@@ -34,7 +34,7 @@ export class RecommendationEngine {
       const keywords = await this.salesAnalyzer.extractKeywords(limitedBestSellers)
       
       // Limit keywords to prevent excessive scraping
-      const limitedKeywords = keywords.slice(0, Math.min(limit * 2, 10))
+      const limitedKeywords = keywords.slice(0, Math.min(limit, 5))
       console.log(`🔑 Using ${limitedKeywords.length} keywords for scraping`)
       
       // Step 3: Scrape supplier platforms
