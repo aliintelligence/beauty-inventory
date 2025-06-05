@@ -8,7 +8,7 @@ export class TrinidadCostCalculator {
   private static readonly PROCESSING_FEE = 10.00 // TT Post processing fee in TTD
   
   // Exchange rate cache (in real app, would fetch from API)
-  private static exchangeRates = {
+  private static exchangeRates: Record<string, number> = {
     'USD_TTD': 6.75, // As of recent rates
     'EUR_TTD': 7.30,
     'GBP_TTD': 8.50
@@ -114,7 +114,7 @@ export class TrinidadCostCalculator {
 
   private estimateShippingCost(product: SupplierProduct): number {
     // Estimate shipping based on platform and product type
-    const baseCosts = {
+    const baseCosts: Record<string, number> = {
       'alibaba': 8.00,  // Higher shipping costs from Alibaba
       'temu': 3.00,     // Lower shipping from Temu
       'shein': 4.00     // Moderate shipping from Shein

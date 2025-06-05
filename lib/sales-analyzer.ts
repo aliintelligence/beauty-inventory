@@ -162,7 +162,9 @@ export class SalesAnalyzer {
   }
 
   private getCategoryKeywords(category?: string): string[] {
-    const categoryKeywordMap = {
+    if (!category) return ['nail', 'beauty']
+    
+    const categoryKeywordMap: Record<string, string[]> = {
       'nail-accessories': ['nail', 'decoration', 'rhinestone', 'crystal', 'gem', 'sticker'],
       'nail-tools': ['tool', 'brush', 'picker', 'dotting', 'cuticle', 'file'],
       'nail-equipment': ['lamp', 'uv', 'led', 'drill', 'vacuum', 'fan'],
@@ -170,7 +172,8 @@ export class SalesAnalyzer {
       'nail-extensions': ['tip', 'form', 'extension', 'builder', 'overlay']
     }
     
-    return categoryKeywordMap[category] || ['nail', 'beauty']
+    const keywords = categoryKeywordMap[category]
+    return keywords || ['nail', 'beauty']
   }
 
   private analyzeCategoryTrends(orders: any[]): Array<{category: string, growth: number}> {
@@ -178,7 +181,7 @@ export class SalesAnalyzer {
     const categoryTrends = new Map<string, number>()
     
     orders.forEach(order => {
-      order.order_items?.forEach(item => {
+      order.order_items?.forEach((item: any) => {
         const category = this.inferCategory(item.products?.name || '')
         const current = categoryTrends.get(category) || 0
         categoryTrends.set(category, current + 1)

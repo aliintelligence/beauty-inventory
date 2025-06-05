@@ -145,7 +145,7 @@ export class SimilarityEngine {
     if (targetCategory === supplierCategory) return 1.0
     
     // Partial category matching
-    const categoryHierarchy = {
+    const categoryHierarchy: Record<string, string[]> = {
       'nail-tools': ['nail-accessories', 'beauty-tools'],
       'nail-accessories': ['nail-tools', 'beauty-accessories'],
       'nail-equipment': ['nail-tools', 'beauty-equipment'],
@@ -230,8 +230,8 @@ export class SimilarityEngine {
   }
 
   private calculateTagSimilarity(target: any, supplier: SupplierProduct): number {
-    const targetTags = target.tags || []
-    const supplierTags = supplier.tags || []
+    const targetTags = (target.tags || []) as string[]
+    const supplierTags = (supplier.tags || []) as string[]
     
     if (targetTags.length === 0 || supplierTags.length === 0) return 0
     
@@ -258,7 +258,7 @@ export class SimilarityEngine {
     }
     
     // Platform reliability factor (10% weight)
-    const platformReliability = {
+    const platformReliability: Record<string, number> = {
       'alibaba': 0.8,  // Generally reliable for bulk orders
       'temu': 0.6,     // Good prices but variable quality
       'shein': 0.5     // Trendy but sometimes inconsistent
