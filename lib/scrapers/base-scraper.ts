@@ -60,9 +60,8 @@ export abstract class BaseScraper {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
-  protected categorizeProduct(title: string, keyword: string): string {
+  protected categorizeProduct(title: string, _keyword: string): string {
     const titleLower = title.toLowerCase()
-    const keywordLower = keyword.toLowerCase()
 
     if (titleLower.includes('nail') || titleLower.includes('manicure')) {
       if (titleLower.includes('lamp') || titleLower.includes('uv') || titleLower.includes('led')) {

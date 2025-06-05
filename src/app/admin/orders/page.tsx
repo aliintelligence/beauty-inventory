@@ -57,7 +57,7 @@ export default function OrdersPage() {
     }
   }
 
-  const deleteOrder = async (orderId: string, orderItems: any[]) => {
+  const deleteOrder = async (orderId: string, _orderItems: any[]) => {
     const orderNumber = orderId.slice(-8).toUpperCase()
     
     if (!confirm(`Are you sure you want to delete Order #${orderNumber}? This will restore the inventory for all items in this order.`)) {

@@ -2,7 +2,7 @@ import { SalesAnalyzer } from './sales-analyzer'
 import { TrinidadCostCalculator } from './trinidad-cost-calculator'
 import { SimilarityEngine } from './similarity-engine'
 import { ScraperManager } from './scrapers/scraper-manager'
-import { ProductRecommendation, SupplierProduct, ScrapingResult } from './scrapers/types'
+import { ProductRecommendation, SupplierProduct } from './scrapers/types'
 import { supabase } from './supabase'
 
 export class RecommendationEngine {

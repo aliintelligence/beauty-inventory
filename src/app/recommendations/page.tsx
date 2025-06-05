@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Brain, TrendingUp, DollarSign, Package, ArrowLeft, RefreshCw, ExternalLink, Star, Zap } from 'lucide-react'
+import { Brain, TrendingUp, DollarSign, Package, ArrowLeft, ExternalLink, Zap } from 'lucide-react'
 import { formatCurrency } from '../../../lib/currency'
 import GUrlAestheticLogo from '../../../components/GUrlAestheticLogo'
 
@@ -82,20 +82,6 @@ export default function RecommendationsPage() {
     }
   }
 
-  const getPlatformColor = (platform: string) => {
-    const colors = {
-      'alibaba': 'bg-orange-100 text-orange-800',
-      'temu': 'bg-blue-100 text-blue-800',
-      'shein': 'bg-purple-100 text-purple-800'
-    }
-    return colors[platform] || 'bg-gray-100 text-gray-800'
-  }
-
-  const getConfidenceColor = (score: number) => {
-    if (score >= 0.8) return 'text-green-600'
-    if (score >= 0.6) return 'text-yellow-600'
-    return 'text-red-600'
-  }
 
   if (loading) {
     return (

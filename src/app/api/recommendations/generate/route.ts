@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { RecommendationEngine } from '../../../../../lib/recommendation-engine'
 
-export async function POST(request: NextRequest) {
+export async function POST(_request: NextRequest) {
   try {
     console.log('🚀 Starting recommendation generation API...')
     
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Also allow GET for testing
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   return NextResponse.json({
     message: 'Use POST method to generate recommendations',
     endpoint: '/api/recommendations/generate',

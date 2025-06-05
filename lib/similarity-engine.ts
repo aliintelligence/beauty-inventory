@@ -274,7 +274,7 @@ export class SimilarityEngine {
   }
 
   // Utility method to explain similarity
-  explainSimilarity(match: SimilarityMatch, target: any): string {
+  explainSimilarity(match: SimilarityMatch, _target: any): string {
     const reasons = []
     
     reasons.push(`${(match.similarity_score * 100).toFixed(0)}% similar overall`)

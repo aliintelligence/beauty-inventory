@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '../../../../../lib/supabase'
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     console.log('🧪 Testing recommendation system components...')
     
@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     
     // Test 1: Database connection and tables
     try {
-      const { data: productsData, error: productsError } = await supabase
+      const { error: productsError } = await supabase
         .from('products')
         .select('count')
         .single()
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
         status: productsError ? 'FAIL' : 'PASS',
         details: productsError?.message || 'Connected successfully'
       })
-    } catch (error) {
+    } catch (_error) {
       tests.push({
         name: 'Products Table',
         status: 'FAIL',
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     
     // Test 2: Supplier products table
     try {
-      const { data: supplierData, error: supplierError } = await supabase
+      const { error: supplierError } = await supabase
         .from('supplier_products')
         .select('count')
         .single()
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
         status: supplierError ? 'FAIL' : 'PASS',
         details: supplierError?.message || 'Table accessible'
       })
-    } catch (error) {
+    } catch (_error) {
       tests.push({
         name: 'Supplier Products Table',
         status: 'FAIL',
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
     
     // Test 3: Recommendations table
     try {
-      const { data: recData, error: recError } = await supabase
+      const { error: recError } = await supabase
         .from('product_recommendations')
         .select('count')
         .single()
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
         status: recError ? 'FAIL' : 'PASS',
         details: recError?.message || 'Table accessible'
       })
-    } catch (error) {
+    } catch (_error) {
       tests.push({
         name: 'Recommendations Table',
         status: 'FAIL',
@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
         status: viewError ? 'FAIL' : 'PASS',
         details: viewError?.message || `View accessible (${viewData?.length || 0} records)`
       })
-    } catch (error) {
+    } catch (_error) {
       tests.push({
         name: 'Recommendation Details View',
         status: 'FAIL',
@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
         status: salesError ? 'FAIL' : 'PASS',
         details: salesError?.message || `View accessible (${salesData?.length || 0} records)`
       })
-    } catch (error) {
+    } catch (_error) {
       tests.push({
         name: 'Sales Summary View',
         status: 'FAIL',

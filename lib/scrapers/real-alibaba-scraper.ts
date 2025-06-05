@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { BaseScraper } from './base-scraper'
 import { SupplierProduct, ScrapingResult } from './types'
@@ -11,14 +10,12 @@ export class RealAlibabaScraper extends BaseScraper {
     
     const allProducts: SupplierProduct[] = []
     let totalErrors = 0
-    let totalFound = 0
 
     for (const keyword of keywords.slice(0, 3)) { // Limit to 3 keywords to avoid rate limiting
       try {
         console.log(`🔎 Searching Alibaba for: "${keyword}"`)
         const products = await this.scrapeKeyword(keyword)
         allProducts.push(...products)
-        totalFound += products.length
         
         // Rate limiting between keywords
         await this.sleep(5000) // 5 second delay

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { RecommendationEngine } from '../../../../../lib/recommendation-engine'
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     console.log('🧪 Testing scraper functionality...')
     

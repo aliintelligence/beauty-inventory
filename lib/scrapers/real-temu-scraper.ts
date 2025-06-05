@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { BaseScraper } from './base-scraper'
 import { SupplierProduct, ScrapingResult } from './types'

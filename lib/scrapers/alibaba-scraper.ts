@@ -95,7 +95,7 @@ export class AlibabaScraper extends BaseScraper {
     return products
   }
 
-  private generateProductName(keyword: string, platform: string): string {
+  private generateProductName(keyword: string, _platform: string): string {
     const prefixes = ['Professional', 'High Quality', 'Premium', 'Wholesale', 'Factory Direct']
     const suffixes = ['Tool Set', 'Kit', 'Supplies', 'Equipment', 'Accessories']
     
