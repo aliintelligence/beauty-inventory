@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase } from '../../../../lib/supabase'
+import { formatCurrency } from '../../../../lib/currency'
 import { Plus, Eye, Calendar, DollarSign } from 'lucide-react'
 
 interface Order {
@@ -83,7 +84,7 @@ export default function OrdersPage() {
           <p className="mt-1 text-gray-600">View and manage customer orders</p>
         </div>
         <Link
-          href="/orders/new"
+          href="/admin/orders/new"
           className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
         >
           <Plus className="h-4 w-4" />
@@ -113,7 +114,7 @@ export default function OrdersPage() {
                   </div>
                   <div className="flex items-center space-x-1">
                     <DollarSign className="h-4 w-4" />
-                    <span>${order.total_amount.toFixed(2)}</span>
+                    <span>{formatCurrency(order.total_amount)}</span>
                   </div>
                   <div>
                     {order.customer_name && (
@@ -147,8 +148,8 @@ export default function OrdersPage() {
                       <span className="text-gray-500 ml-2">× {item.quantity}</span>
                     </div>
                     <div className="text-right">
-                      <div className="font-medium">${item.total_price.toFixed(2)}</div>
-                      <div className="text-sm text-gray-500">${item.unit_price.toFixed(2)} each</div>
+                      <div className="font-medium">{formatCurrency(item.total_price)}</div>
+                      <div className="text-sm text-gray-500">{formatCurrency(item.unit_price)} each</div>
                     </div>
                   </div>
                 ))}
@@ -156,7 +157,7 @@ export default function OrdersPage() {
               
               <div className="flex justify-between items-center pt-4 border-t border-gray-200 mt-4">
                 <span className="text-lg font-semibold text-gray-900">Total:</span>
-                <span className="text-lg font-semibold text-gray-900">${order.total_amount.toFixed(2)}</span>
+                <span className="text-lg font-semibold text-gray-900">{formatCurrency(order.total_amount)}</span>
               </div>
             </div>
           </div>
@@ -169,7 +170,7 @@ export default function OrdersPage() {
               <h3 className="text-lg font-medium text-gray-900 mb-2">No orders yet</h3>
               <p className="text-gray-500 mb-4">Start by creating your first customer order</p>
               <Link
-                href="/orders/new"
+                href="/admin/orders/new"
                 className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg inline-flex items-center space-x-2 transition-colors"
               >
                 <Plus className="h-4 w-4" />

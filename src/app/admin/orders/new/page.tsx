@@ -134,13 +134,12 @@ export default function NewOrderPage() {
 
       if (orderError) throw orderError
 
-      // Create order items
+      // Create order items (don't include total_price as it's computed)
       const orderItemsData = orderItems.map(item => ({
         order_id: orderData.id,
         product_id: item.product_id,
         quantity: item.quantity,
-        unit_price: item.unit_price,
-        total_price: item.total_price
+        unit_price: item.unit_price
       }))
 
       const { error: itemsError } = await supabase
@@ -149,10 +148,16 @@ export default function NewOrderPage() {
 
       if (itemsError) throw itemsError
 
-      router.push('/orders')
+      router.push('/admin/orders')
     } catch (error) {
       console.error('Error creating order:', error)
-      alert('Error creating order')
+      
+      // Better error message
+      let errorMessage = 'Error creating order'
+      if (error && typeof error === 'object' && 'message' in error) {
+        errorMessage = `Error: ${error.message}`
+      }
+      alert(errorMessage)
     } finally {
       setLoading(false)
     }
