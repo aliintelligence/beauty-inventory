@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useAuth } from '../../../components/AuthProvider'
 import { useEffect, useState } from 'react'
 import LoginForm from '../../../components/LoginForm'
+import GUrlAestheticLogo from '../../../components/GUrlAestheticLogo'
 import { LogOut } from 'lucide-react'
 
 export default function AdminLayout({
@@ -40,8 +41,9 @@ export default function AdminLayout({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center space-x-8">
-              <Link href="/admin" className="text-xl font-semibold text-pink-900">
-                💅 Gurl Aesthetic Admin
+              <Link href="/admin" className="flex items-center space-x-3">
+                <GUrlAestheticLogo size="sm" showText={false} />
+                <span className="text-xl font-semibold text-pink-900">Gurl Aesthetic Admin</span>
               </Link>
               <div className="hidden md:flex space-x-6">
                 <Link href="/admin" className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium">

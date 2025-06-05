@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gurl Aesthetic - Inventory Management",
-  description: "Nail art and beauty product inventory management for Gurl Aesthetic",
+  title: "Gurl Aesthetic - Nail Accessories & Beauty Products",
+  description: "Premium nail accessories and girly beauty products. DM to order! Nationwide delivery in Trinidad & Tobago.",
 };
 
 export default function RootLayout({

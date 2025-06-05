@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { validateCredentials, setAuthToken } from '../lib/auth'
 import { useAuth } from './AuthProvider'
 import { Eye, EyeOff, Lock, User } from 'lucide-react'
+import GUrlAestheticLogo from './GUrlAestheticLogo'
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -47,9 +48,7 @@ export default function LoginForm() {
       <div className="max-w-md w-full">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="mx-auto w-20 h-20 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
-            <span className="text-3xl">💅</span>
-          </div>
+          <GUrlAestheticLogo size="lg" showText={false} className="mb-4" />
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Gurl Aesthetic</h1>
           <p className="text-gray-600">Admin Portal</p>
         </div>

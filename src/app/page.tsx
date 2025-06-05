@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Instagram, MapPin, Sparkles } from 'lucide-react'
+import GUrlAestheticLogo from '../../components/GUrlAestheticLogo'
 
 export default function HomePage() {
   const [showAdminButton, setShowAdminButton] = useState(false)
@@ -28,9 +29,7 @@ export default function HomePage() {
       <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
         {/* Logo/Brand */}
         <div className="mb-8">
-          <div className="mx-auto w-32 h-32 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-lg">
-            <span className="text-6xl">💅</span>
-          </div>
+          <GUrlAestheticLogo size="xl" showText={false} className="mb-6" />
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
             Gurl Aesthetic
           </h1>
