@@ -19,7 +19,7 @@ export async function GET(_request: NextRequest) {
         status: productsError ? 'FAIL' : 'PASS',
         details: productsError?.message || 'Connected successfully'
       })
-    } catch (_error) {
+    } catch {
       tests.push({
         name: 'Products Table',
         status: 'FAIL',
@@ -39,7 +39,7 @@ export async function GET(_request: NextRequest) {
         status: supplierError ? 'FAIL' : 'PASS',
         details: supplierError?.message || 'Table accessible'
       })
-    } catch (_error) {
+    } catch {
       tests.push({
         name: 'Supplier Products Table',
         status: 'FAIL',
@@ -59,7 +59,7 @@ export async function GET(_request: NextRequest) {
         status: recError ? 'FAIL' : 'PASS',
         details: recError?.message || 'Table accessible'
       })
-    } catch (_error) {
+    } catch {
       tests.push({
         name: 'Recommendations Table',
         status: 'FAIL',
@@ -79,7 +79,7 @@ export async function GET(_request: NextRequest) {
         status: viewError ? 'FAIL' : 'PASS',
         details: viewError?.message || `View accessible (${viewData?.length || 0} records)`
       })
-    } catch (_error) {
+    } catch {
       tests.push({
         name: 'Recommendation Details View',
         status: 'FAIL',
@@ -99,7 +99,7 @@ export async function GET(_request: NextRequest) {
         status: salesError ? 'FAIL' : 'PASS',
         details: salesError?.message || `View accessible (${salesData?.length || 0} records)`
       })
-    } catch (_error) {
+    } catch {
       tests.push({
         name: 'Sales Summary View',
         status: 'FAIL',
