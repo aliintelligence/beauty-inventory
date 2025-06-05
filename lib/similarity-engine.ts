@@ -247,7 +247,7 @@ export class SimilarityEngine {
   private calculateConfidence(
     similarity: SimilarityResult, 
     supplier: SupplierProduct, 
-    target: any
+    _target: any
   ): number {
     let confidence = similarity.score * 0.6 // Base similarity score (60% weight)
     
