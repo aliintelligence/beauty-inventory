@@ -7,7 +7,6 @@ import GUrlAestheticLogo from '../../components/GUrlAestheticLogo'
 
 export default function HomePage() {
   const [showAdminButton, setShowAdminButton] = useState(false)
-  const [showRecommendationsButton, setShowRecommendationsButton] = useState(false)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
@@ -26,20 +25,6 @@ export default function HomePage() {
         )}
       </div>
 
-      {/* Hidden Recommendations Access */}
-      <div 
-        className="absolute top-4 right-4 w-8 h-8 cursor-pointer"
-        onClick={() => setShowRecommendationsButton(!showRecommendationsButton)}
-      >
-        {showRecommendationsButton && (
-          <Link 
-            href="/recommendations"
-            className="bg-purple-800 text-white px-3 py-1 rounded text-xs hover:bg-purple-700 transition-colors"
-          >
-            AI Rec
-          </Link>
-        )}
-      </div>
 
       {/* Main Content */}
       <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">

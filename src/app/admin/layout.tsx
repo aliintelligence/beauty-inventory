@@ -58,6 +58,9 @@ export default function AdminLayout({
                 <Link href="/admin/analytics" className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium">
                   Analytics
                 </Link>
+                <Link href="/recommendations" className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium">
+                  AI Recommendations
+                </Link>
               </div>
             </div>
             <div className="flex items-center space-x-4">
