@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase } from '../../lib/supabase'
+import { formatCurrency } from '../../lib/currency'
 import { Plus, Package, ShoppingCart, TrendingUp, Eye } from 'lucide-react'
 
 interface Product {
@@ -78,8 +79,8 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="mt-1 text-gray-600">Manage your beauty product inventory</p>
+          <h1 className="text-3xl font-bold text-gray-900">Gurl Aesthetic Dashboard</h1>
+          <p className="mt-1 text-gray-600">Manage your nail art & beauty product inventory</p>
         </div>
         <div className="flex space-x-3">
           <Link
@@ -125,7 +126,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Total Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">${stats.totalRevenue.toFixed(2)}</p>
+              <p className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalRevenue)}</p>
             </div>
             <TrendingUp className="h-8 w-8 text-green-600" />
           </div>
@@ -184,10 +185,10 @@ export default function Dashboard() {
                       <div className="font-medium text-gray-900">{product.name}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      ${product.price.toFixed(2)}
+                      {formatCurrency(product.price)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      ${totalCost.toFixed(2)}
+                      {formatCurrency(totalCost)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${

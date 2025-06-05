@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase } from '../../../lib/supabase'
+import { formatCurrency } from '../../../lib/currency'
 import { Plus, Edit, Trash2, Search } from 'lucide-react'
 
 interface Product {
@@ -81,7 +82,7 @@ export default function ProductsPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Products</h1>
-          <p className="mt-1 text-gray-600">Manage your beauty product inventory</p>
+          <p className="mt-1 text-gray-600">Manage your Gurl Aesthetic nail art & beauty inventory</p>
         </div>
         <Link
           href="/products/new"
@@ -151,13 +152,13 @@ export default function ProductsPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-gray-900 font-medium">
-                      ${product.price.toFixed(2)}
+                      {formatCurrency(product.price)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      ${product.cost.toFixed(2)}
+                      {formatCurrency(product.cost)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      ${(product.customs_cost || 0).toFixed(2)}
+                      {formatCurrency(product.customs_cost || 0)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${

@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Beauty Inventory Tracker",
-  description: "Track your beauty product inventory and sales",
+  title: "Gurl Aesthetic - Inventory Management",
+  description: "Nail art and beauty product inventory management for Gurl Aesthetic",
 };
 
 export default function RootLayout({
@@ -26,14 +26,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-pink-50 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 min-h-screen`}
       >
         <nav className="bg-white shadow-sm border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex items-center space-x-8">
                 <Link href="/" className="text-xl font-semibold text-pink-900">
-                  💄 Beauty Inventory
+                  💅 Gurl Aesthetic
                 </Link>
                 <div className="hidden md:flex space-x-6">
                   <Link href="/" className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium">

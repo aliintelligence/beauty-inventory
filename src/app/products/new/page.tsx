@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '../../../../lib/supabase'
+import { formatCurrency, CURRENCY } from '../../../../lib/currency'
 import { ArrowLeft, Save } from 'lucide-react'
 
 export default function NewProductPage() {
@@ -71,7 +72,7 @@ export default function NewProductPage() {
         </Link>
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Add New Product</h1>
-          <p className="mt-1 text-gray-600">Add a new beauty product to your inventory</p>
+          <p className="mt-1 text-gray-600">Add a new nail art product to Gurl Aesthetic inventory • Prices in {CURRENCY.code}</p>
         </div>
       </div>
 
@@ -90,7 +91,7 @@ export default function NewProductPage() {
               value={formData.name}
               onChange={handleChange}
               className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-              placeholder="e.g., Fenty Beauty Gloss Bomb"
+              placeholder="e.g., Rhinestone Picker, Nail Art Brushes, Gel Tips"
             />
           </div>
 
@@ -115,7 +116,7 @@ export default function NewProductPage() {
                 Selling Price *
               </label>
               <div className="mt-1 relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">{CURRENCY.symbol}</span>
                 <input
                   type="number"
                   id="price"
@@ -136,7 +137,7 @@ export default function NewProductPage() {
                 Product Cost *
               </label>
               <div className="mt-1 relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">{CURRENCY.symbol}</span>
                 <input
                   type="number"
                   id="cost"
@@ -157,7 +158,7 @@ export default function NewProductPage() {
                 Customs/Import Cost
               </label>
               <div className="mt-1 relative">
-                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">{CURRENCY.symbol}</span>
                 <input
                   type="number"
                   id="customs_cost"
@@ -197,15 +198,15 @@ export default function NewProductPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
                   <span className="text-gray-500">Selling Price:</span>
-                  <div className="font-medium">${price.toFixed(2)}</div>
+                  <div className="font-medium">{formatCurrency(price)}</div>
                 </div>
                 <div>
                   <span className="text-gray-500">Total Cost:</span>
-                  <div className="font-medium">${totalCost.toFixed(2)}</div>
+                  <div className="font-medium">{formatCurrency(totalCost)}</div>
                 </div>
                 <div>
                   <span className="text-gray-500">Profit per Unit:</span>
-                  <div className="font-medium">${(price - totalCost).toFixed(2)}</div>
+                  <div className="font-medium">{formatCurrency(price - totalCost)}</div>
                 </div>
                 <div>
                   <span className="text-gray-500">Profit Margin:</span>

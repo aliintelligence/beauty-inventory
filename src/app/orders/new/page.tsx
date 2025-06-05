@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '../../../../lib/supabase'
-import { ArrowLeft, Plus, Minus, ShoppingCart, Trash2 } from 'lucide-react'
+import { formatCurrency } from '../../../../lib/currency'
+import { searchLocations } from '../../../../lib/trinidad-locations'
+import { ArrowLeft, Plus, Minus, ShoppingCart, Trash2, MapPin } from 'lucide-react'
 
 interface Product {
   id: string
@@ -31,6 +33,8 @@ export default function NewOrderPage() {
     customer_phone: '',
     customer_address: ''
   })
+  const [locationSuggestions, setLocationSuggestions] = useState<string[]>([])
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false)
   const [loading, setLoading] = useState(false)
   const [productsLoading, setProductsLoading] = useState(true)
 
@@ -155,10 +159,28 @@ export default function NewOrderPage() {
   }
 
   const handleCustomerInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
     setCustomerInfo({
       ...customerInfo,
-      [e.target.name]: e.target.value
+      [name]: value
     })
+    
+    // Show location suggestions when typing in address field
+    if (name === 'customer_address' && value.length > 1) {
+      const suggestions = searchLocations(value)
+      setLocationSuggestions(suggestions)
+      setShowLocationDropdown(suggestions.length > 0)
+    } else if (name === 'customer_address') {
+      setShowLocationDropdown(false)
+    }
+  }
+
+  const handleLocationSelect = (location: string) => {
+    setCustomerInfo({
+      ...customerInfo,
+      customer_address: location
+    })
+    setShowLocationDropdown(false)
   }
 
   return (
@@ -190,7 +212,7 @@ export default function NewOrderPage() {
                   <div className="flex-1">
                     <div className="font-medium text-gray-900">{product.name}</div>
                     <div className="text-sm text-gray-500">
-                      ${product.price.toFixed(2)} • {product.inventory_quantity} in stock
+                      {formatCurrency(product.price)} • {product.inventory_quantity} in stock
                     </div>
                   </div>
                   <button
@@ -233,14 +255,43 @@ export default function NewOrderPage() {
                 onChange={handleCustomerInfoChange}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               />
-              <textarea
-                name="customer_address"
-                placeholder="Address"
-                rows={3}
-                value={customerInfo.customer_address}
-                onChange={handleCustomerInfoChange}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-              />
+              <div className="relative">
+                <div className="flex items-center">
+                  <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <textarea
+                    name="customer_address"
+                    placeholder="Address (e.g., Chaguanas, San Fernando, Port of Spain...)"
+                    rows={3}
+                    value={customerInfo.customer_address}
+                    onChange={handleCustomerInfoChange}
+                    onFocus={() => {
+                      if (customerInfo.customer_address.length > 1) {
+                        const suggestions = searchLocations(customerInfo.customer_address)
+                        setLocationSuggestions(suggestions)
+                        setShowLocationDropdown(suggestions.length > 0)
+                      }
+                    }}
+                    className="w-full pl-10 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  />
+                </div>
+                {showLocationDropdown && locationSuggestions.length > 0 && (
+                  <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                    {locationSuggestions.map((location, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => handleLocationSelect(location)}
+                        className="w-full text-left px-3 py-2 hover:bg-gray-50 focus:bg-gray-50 focus:outline-none"
+                      >
+                        <div className="flex items-center">
+                          <MapPin className="h-3 w-3 text-gray-400 mr-2" />
+                          {location}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
@@ -256,7 +307,7 @@ export default function NewOrderPage() {
                   <div key={item.product_id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
                     <div className="flex-1">
                       <div className="font-medium text-gray-900">{item.product_name}</div>
-                      <div className="text-sm text-gray-500">${item.unit_price.toFixed(2)} each</div>
+                      <div className="text-sm text-gray-500">{formatCurrency(item.unit_price)} each</div>
                     </div>
                     <div className="flex items-center space-x-2">
                       <button
@@ -280,7 +331,7 @@ export default function NewOrderPage() {
                       </button>
                     </div>
                     <div className="text-right ml-4">
-                      <div className="font-medium">${item.total_price.toFixed(2)}</div>
+                      <div className="font-medium">{formatCurrency(item.total_price)}</div>
                     </div>
                   </div>
                 ))}
@@ -288,7 +339,7 @@ export default function NewOrderPage() {
                 <div className="border-t pt-3 mt-4">
                   <div className="flex justify-between items-center text-lg font-semibold">
                     <span>Total:</span>
-                    <span>${totalAmount.toFixed(2)}</span>
+                    <span>{formatCurrency(totalAmount)}</span>
                   </div>
                 </div>
               </div>
