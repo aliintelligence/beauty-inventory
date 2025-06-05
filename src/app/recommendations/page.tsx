@@ -232,7 +232,7 @@ export default function RecommendationsPage() {
                 Generate AI-powered product recommendations based on your best-selling items
               </p>
               <button
-                onClick={generateNewRecommendations}
+                onClick={() => generateNewRecommendations()}
                 disabled={generating}
                 className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors disabled:opacity-50"
               >
