@@ -35,7 +35,7 @@ export default function HomePage() {
             Gurl Aesthetic
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 mb-8">
-            Professional Nail Art & Beauty Services
+            Nail Accessories & Girly Beauty Products 🇹🇹
           </p>
         </div>
 
@@ -51,8 +51,8 @@ export default function HomePage() {
           
           <p className="text-lg text-gray-700 mb-6 leading-relaxed">
             We&apos;re putting the finishing touches on our new website! 
-            Get ready for an amazing online experience featuring our 
-            premium nail art services and beauty products.
+            Get ready for an amazing online shopping experience featuring our 
+            premium nail accessories and girly beauty products.
           </p>
 
           <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg p-6 mb-6">
@@ -60,25 +60,37 @@ export default function HomePage() {
             <ul className="text-gray-700 space-y-2 text-left">
               <li className="flex items-center">
                 <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
-                Online booking for nail art appointments
+                Browse our complete nail accessories catalog
               </li>
               <li className="flex items-center">
                 <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                Browse our complete product catalog
+                Easy online ordering system
               </li>
               <li className="flex items-center">
                 <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
-                Gallery of our latest nail art designs
+                Nationwide delivery & free pickup options
               </li>
               <li className="flex items-center">
                 <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                Special offers and promotions
+                Special deals and girly beauty products
               </li>
             </ul>
           </div>
 
-          <p className="text-sm text-gray-600">
-            In the meantime, follow us on Instagram for the latest updates!
+          <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-lg p-6 mb-4">
+            <h3 className="font-semibold text-gray-900 mb-3 text-center">🛍️ Ready to Order Now?</h3>
+            <p className="text-center text-gray-700 mb-3">
+              <strong>DM us on Instagram to place your order!</strong>
+            </p>
+            <div className="text-sm text-gray-600 text-center space-y-1">
+              <p>📲 Nationwide Delivery Available</p>
+              <p>🆓 Free Pickup Option</p>
+              <p>💅 Nail Accessories & Beauty Products</p>
+            </div>
+          </div>
+
+          <p className="text-sm text-gray-600 text-center">
+            Follow us on Instagram for product updates and to start your haul!
           </p>
         </div>
 
@@ -88,17 +100,19 @@ export default function HomePage() {
             href="https://www.instagram.com/gurlaesthetic.tt/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow group"
+            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow group border-2 border-pink-200"
           >
             <Instagram className="h-8 w-8 text-pink-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-            <h3 className="font-semibold text-gray-900 mb-1">Follow Us</h3>
+            <h3 className="font-semibold text-gray-900 mb-1">DM to Order! 📲</h3>
             <p className="text-gray-600 text-sm">@gurlaesthetic.tt</p>
+            <p className="text-xs text-pink-600 mt-1">Tap &apos;Message&apos; to start your haul!</p>
           </a>
 
           <div className="bg-white rounded-xl shadow-lg p-6">
             <MapPin className="h-8 w-8 text-purple-500 mx-auto mb-3" />
-            <h3 className="font-semibold text-gray-900 mb-1">Location</h3>
-            <p className="text-gray-600 text-sm">Trinidad & Tobago</p>
+            <h3 className="font-semibold text-gray-900 mb-1">Delivery & Pickup</h3>
+            <p className="text-gray-600 text-sm">🇹🇹 Nationwide Delivery</p>
+            <p className="text-xs text-green-600 mt-1">Free Pickup Available</p>
           </div>
         </div>
 
