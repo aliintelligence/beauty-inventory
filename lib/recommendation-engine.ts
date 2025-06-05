@@ -179,7 +179,7 @@ export class RecommendationEngine {
     }
     
     // Platform benefit
-    const platformBenefits = {
+    const platformBenefits: Record<string, string> = {
       'alibaba': 'bulk pricing available',
       'temu': 'fast shipping & trendy styles',
       'shein': 'competitive prices & aesthetic appeal'
