@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase } from '../../../../lib/supabase'
 import { formatCurrency } from '../../../../lib/currency'
-import { Plus, Eye, Calendar, DollarSign } from 'lucide-react'
+import { Plus, Eye, Calendar, DollarSign, Trash2 } from 'lucide-react'
 
 interface Order {
   id: string
@@ -54,6 +54,35 @@ export default function OrdersPage() {
       console.error('Error fetching orders:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const deleteOrder = async (orderId: string, orderItems: any[]) => {
+    const orderNumber = orderId.slice(-8).toUpperCase()
+    
+    if (!confirm(`Are you sure you want to delete Order #${orderNumber}? This will restore the inventory for all items in this order.`)) {
+      return
+    }
+
+    try {
+      // Delete the order (order_items will be deleted automatically due to CASCADE)
+      const { error } = await supabase
+        .from('orders')
+        .delete()
+        .eq('id', orderId)
+
+      if (error) throw error
+
+      // The database triggers will automatically restore inventory
+      // when order_items are deleted due to CASCADE
+      
+      // Refresh the orders list
+      await fetchOrders()
+      
+      alert(`Order #${orderNumber} deleted successfully. Inventory has been restored.`)
+    } catch (error) {
+      console.error('Error deleting order:', error)
+      alert('Error deleting order')
     }
   }
 
@@ -123,6 +152,13 @@ export default function OrdersPage() {
                   </div>
                 </div>
               </div>
+              <button
+                onClick={() => deleteOrder(order.id, order.order_items)}
+                className="text-red-600 hover:text-red-700 p-2"
+                title="Delete Order"
+              >
+                <Trash2 className="h-5 w-5" />
+              </button>
             </div>
 
             {/* Customer Info */}
