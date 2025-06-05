@@ -1,214 +1,112 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { supabase } from '../../lib/supabase'
-import { formatCurrency } from '../../lib/currency'
-import { Plus, Package, ShoppingCart, TrendingUp, Eye } from 'lucide-react'
+import { Instagram, MapPin, Sparkles } from 'lucide-react'
 
-interface Product {
-  id: string
-  name: string
-  price: number
-  cost: number
-  customs_cost: number | null
-  inventory_quantity: number
-}
-
-interface DashboardStats {
-  totalProducts: number
-  totalOrders: number
-  totalRevenue: number
-  lowStockItems: number
-}
-
-export default function Dashboard() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [stats, setStats] = useState<DashboardStats>({
-    totalProducts: 0,
-    totalOrders: 0,
-    totalRevenue: 0,
-    lowStockItems: 0
-  })
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
-    try {
-      // Fetch products
-      const { data: productsData } = await supabase
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      // Fetch orders count and total revenue
-      const { data: ordersData } = await supabase
-        .from('orders')
-        .select('total_amount')
-
-      const totalRevenue = ordersData?.reduce((sum, order) => sum + Number(order.total_amount), 0) || 0
-      const lowStockItems = productsData?.filter(p => p.inventory_quantity <= 5).length || 0
-
-      setProducts(productsData || [])
-      setStats({
-        totalProducts: productsData?.length || 0,
-        totalOrders: ordersData?.length || 0,
-        totalRevenue,
-        lowStockItems
-      })
-    } catch (error) {
-      console.error('Error fetching data:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600"></div>
-      </div>
-    )
-  }
+export default function HomePage() {
+  const [showAdminButton, setShowAdminButton] = useState(false)
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gurl Aesthetic Dashboard</h1>
-          <p className="mt-1 text-gray-600">Manage your nail art & beauty product inventory</p>
-        </div>
-        <div className="flex space-x-3">
-          <Link
-            href="/products/new"
-            className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
+      {/* Hidden Admin Access */}
+      <div 
+        className="absolute top-4 left-4 w-8 h-8 cursor-pointer"
+        onClick={() => setShowAdminButton(!showAdminButton)}
+      >
+        {showAdminButton && (
+          <Link 
+            href="/admin"
+            className="bg-gray-800 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 transition-colors"
           >
-            <Plus className="h-4 w-4" />
-            <span>Add Product</span>
+            Admin
           </Link>
-          <Link
-            href="/orders/new"
-            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
-          >
-            <ShoppingCart className="h-4 w-4" />
-            <span>New Order</span>
-          </Link>
-        </div>
+        )}
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Total Products</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalProducts}</p>
-            </div>
-            <Package className="h-8 w-8 text-pink-600" />
+      {/* Main Content */}
+      <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+        {/* Logo/Brand */}
+        <div className="mb-8">
+          <div className="mx-auto w-32 h-32 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-lg">
+            <span className="text-6xl">💅</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+            Gurl Aesthetic
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-600 mb-8">
+            Professional Nail Art & Beauty Services
+          </p>
+        </div>
+
+        {/* Work in Progress Message */}
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 max-w-2xl mx-auto mb-8">
+          <div className="flex items-center justify-center mb-6">
+            <Sparkles className="h-8 w-8 text-pink-500 mr-3" />
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
+              Coming Soon
+            </h2>
+            <Sparkles className="h-8 w-8 text-pink-500 ml-3" />
+          </div>
+          
+          <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+            We&apos;re putting the finishing touches on our new website! 
+            Get ready for an amazing online experience featuring our 
+            premium nail art services and beauty products.
+          </p>
+
+          <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg p-6 mb-6">
+            <h3 className="font-semibold text-gray-900 mb-3">What&apos;s Coming:</h3>
+            <ul className="text-gray-700 space-y-2 text-left">
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                Online booking for nail art appointments
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                Browse our complete product catalog
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-pink-500 rounded-full mr-3"></div>
+                Gallery of our latest nail art designs
+              </li>
+              <li className="flex items-center">
+                <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                Special offers and promotions
+              </li>
+            </ul>
+          </div>
+
+          <p className="text-sm text-gray-600">
+            In the meantime, follow us on Instagram for the latest updates!
+          </p>
+        </div>
+
+        {/* Contact Info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-lg mx-auto">
+          <a 
+            href="https://www.instagram.com/gurlaesthetic.tt/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow group"
+          >
+            <Instagram className="h-8 w-8 text-pink-500 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+            <h3 className="font-semibold text-gray-900 mb-1">Follow Us</h3>
+            <p className="text-gray-600 text-sm">@gurlaesthetic.tt</p>
+          </a>
+
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <MapPin className="h-8 w-8 text-purple-500 mx-auto mb-3" />
+            <h3 className="font-semibold text-gray-900 mb-1">Location</h3>
+            <p className="text-gray-600 text-sm">Trinidad & Tobago</p>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Total Orders</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalOrders}</p>
-            </div>
-            <ShoppingCart className="h-8 w-8 text-purple-600" />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Total Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">{formatCurrency(stats.totalRevenue)}</p>
-            </div>
-            <TrendingUp className="h-8 w-8 text-green-600" />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600">Low Stock Items</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.lowStockItems}</p>
-            </div>
-            <Eye className="h-8 w-8 text-red-600" />
-          </div>
-        </div>
-      </div>
-
-      {/* Recent Products */}
-      <div className="bg-white rounded-lg shadow">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <div className="flex justify-between items-center">
-            <h2 className="text-lg font-semibold text-gray-900">Recent Products</h2>
-            <Link href="/products" className="text-pink-600 hover:text-pink-700 text-sm font-medium">
-              View all →
-            </Link>
-          </div>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Product
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Price
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Cost
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Stock
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Profit Margin
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {products.slice(0, 5).map((product) => {
-                const totalCost = product.cost + (product.customs_cost || 0)
-                const profitMargin = ((product.price - totalCost) / product.price) * 100
-                
-                return (
-                  <tr key={product.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="font-medium text-gray-900">{product.name}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      {formatCurrency(product.price)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      {formatCurrency(totalCost)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                        product.inventory_quantity <= 5 
-                          ? 'bg-red-100 text-red-800' 
-                          : product.inventory_quantity <= 10
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-green-100 text-green-800'
-                      }`}>
-                        {product.inventory_quantity}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-900">
-                      {profitMargin.toFixed(1)}%
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
+        {/* Footer */}
+        <div className="mt-12 text-center">
+          <p className="text-gray-500 text-sm">
+            © 2024 Gurl Aesthetic. All rights reserved.
+          </p>
         </div>
       </div>
     </div>
