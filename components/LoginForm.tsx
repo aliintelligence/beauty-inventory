@@ -75,7 +75,7 @@ export default function LoginForm() {
                   required
                   value={formData.username}
                   onChange={handleChange}
-                  className="pl-10 w-full border border-gray-300 rounded-lg px-3 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-colors"
+                  className="pl-10 w-full border border-gray-300 rounded-lg px-3 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-colors text-gray-900"
                   placeholder="Enter username"
                 />
               </div>
@@ -94,7 +94,7 @@ export default function LoginForm() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="pl-10 pr-10 w-full border border-gray-300 rounded-lg px-3 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-colors"
+                  className="pl-10 pr-10 w-full border border-gray-300 rounded-lg px-3 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-colors text-gray-900"
                   placeholder="Enter password"
                 />
                 <button

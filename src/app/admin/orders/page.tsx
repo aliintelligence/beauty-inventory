@@ -154,7 +154,7 @@ export default function OrdersPage() {
               </div>
               <button
                 onClick={() => deleteOrder(order.id, order.order_items)}
-                className="text-red-600 hover:text-red-700 p-2"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors"
                 title="Delete Order"
               >
                 <Trash2 className="h-5 w-5" />
