@@ -1,9 +1,7 @@
 import { SalesAnalyzer } from './sales-analyzer'
 import { TrinidadCostCalculator } from './trinidad-cost-calculator'
 import { SimilarityEngine } from './similarity-engine'
-import { AlibabaScraper } from './scrapers/alibaba-scraper'
-import { TemuScraper } from './scrapers/temu-scraper'
-import { SheinScraper } from './scrapers/shein-scraper'
+import { ScraperManager } from './scrapers/scraper-manager'
 import { ProductRecommendation, SupplierProduct, ScrapingResult } from './scrapers/types'
 import { supabase } from './supabase'
 
@@ -11,11 +9,7 @@ export class RecommendationEngine {
   private salesAnalyzer = new SalesAnalyzer()
   private costCalculator = new TrinidadCostCalculator()
   private similarityEngine = new SimilarityEngine()
-  private scrapers = {
-    alibaba: new AlibabaScraper(),
-    temu: new TemuScraper(),
-    shein: new SheinScraper()
-  }
+  private scraperManager = new ScraperManager()
 
   async generateRecommendations(): Promise<ProductRecommendation[]> {
     console.log('🚀 Starting recommendation generation process...')
@@ -56,43 +50,16 @@ export class RecommendationEngine {
   }
 
   private async scrapeAllPlatforms(keywords: string[]): Promise<SupplierProduct[]> {
-    console.log(`🕷️ Scraping ${Object.keys(this.scrapers).length} platforms for ${keywords.length} keywords`)
+    console.log(`🕷️ Using ScraperManager to scrape platforms for ${keywords.length} keywords`)
     
-    const allProducts: SupplierProduct[] = []
-    const scrapingPromises: Promise<ScrapingResult>[] = []
+    // Use the ScraperManager for improved scraping
+    const supplierProducts = await this.scraperManager.getRecommendationProducts(keywords)
     
-    // Launch scrapers in parallel with staggered starts to avoid rate limiting
-    Object.entries(this.scrapers).forEach(([platform, scraper], index) => {
-      setTimeout(() => {
-        scrapingPromises.push(scraper.scrapeProducts(keywords))
-      }, index * 1000) // 1 second delay between each scraper
-    })
+    // Save to database
+    await this.saveSupplierProducts(supplierProducts)
     
-    // Wait for all scrapers to complete
-    const results = await Promise.allSettled(scrapingPromises)
-    
-    results.forEach((result, index) => {
-      const platform = Object.keys(this.scrapers)[index]
-      
-      if (result.status === 'fulfilled') {
-        const scrapingResult = result.value
-        console.log(`✅ ${platform}: Found ${scrapingResult.total_found} products`)
-        allProducts.push(...scrapingResult.products)
-        
-        if (scrapingResult.error) {
-          console.warn(`⚠️ ${platform}: ${scrapingResult.error}`)
-        }
-      } else {
-        console.error(`❌ ${platform} scraping failed:`, result.reason)
-      }
-    })
-    
-    // Remove duplicates and save to database
-    const uniqueProducts = this.deduplicateProducts(allProducts)
-    await this.saveSupplierProducts(uniqueProducts)
-    
-    console.log(`✅ Total unique products scraped: ${uniqueProducts.length}`)
-    return uniqueProducts
+    console.log(`✅ Total unique products scraped: ${supplierProducts.length}`)
+    return supplierProducts
   }
 
   private async processRecommendations(
@@ -365,14 +332,14 @@ export class RecommendationEngine {
     })
   }
 
-  private deduplicateProducts(products: SupplierProduct[]): SupplierProduct[] {
-    const seen = new Set()
-    return products.filter(product => {
-      const key = `${product.platform}_${product.external_id}`
-      if (seen.has(key)) return false
-      seen.add(key)
-      return true
-    })
+  // Method to enable/disable real scrapers
+  setUseRealScrapers(useReal: boolean): void {
+    this.scraperManager.setUseRealScrapers(useReal)
+  }
+
+  // Method to test all scrapers
+  async testScrapers() {
+    return await this.scraperManager.testScrapers()
   }
 
   // Method to get existing recommendations from database

@@ -28,7 +28,7 @@ export default function HomePage() {
 
       {/* Hidden Recommendations Access */}
       <div 
-        className="absolute bottom-4 right-4 w-8 h-8 cursor-pointer"
+        className="absolute top-4 right-4 w-8 h-8 cursor-pointer"
         onClick={() => setShowRecommendationsButton(!showRecommendationsButton)}
       >
         {showRecommendationsButton && (
