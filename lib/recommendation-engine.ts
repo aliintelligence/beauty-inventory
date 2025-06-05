@@ -11,8 +11,9 @@ export class RecommendationEngine {
   private similarityEngine = new SimilarityEngine()
   private scraperManager = new ScraperManager()
 
-  async generateRecommendations(): Promise<ProductRecommendation[]> {
+  async generateRecommendations(options: { limit?: number } = {}): Promise<ProductRecommendation[]> {
     console.log('🚀 Starting recommendation generation process...')
+    const limit = options.limit || 5 // Default to 5 products to prevent timeout
     
     try {
       // Step 1: Analyze best-selling products
@@ -24,17 +25,25 @@ export class RecommendationEngine {
         return await this.generateDefaultRecommendations()
       }
       
+      // Limit best sellers to prevent timeout
+      const limitedBestSellers = bestSellers.slice(0, Math.min(limit, 3))
+      console.log(`📦 Processing top ${limitedBestSellers.length} best sellers`)
+      
       // Step 2: Extract keywords from best sellers
       console.log('🔍 Step 2: Extracting keywords...')
-      const keywords = await this.salesAnalyzer.extractKeywords(bestSellers)
+      const keywords = await this.salesAnalyzer.extractKeywords(limitedBestSellers)
+      
+      // Limit keywords to prevent excessive scraping
+      const limitedKeywords = keywords.slice(0, Math.min(limit * 2, 10))
+      console.log(`🔑 Using ${limitedKeywords.length} keywords for scraping`)
       
       // Step 3: Scrape supplier platforms
       console.log('🌐 Step 3: Scraping supplier platforms...')
-      const supplierProducts = await this.scrapeAllPlatforms(keywords)
+      const supplierProducts = await this.scrapeAllPlatforms(limitedKeywords)
       
       // Step 4: Find similar products and calculate recommendations
       console.log('🔄 Step 4: Generating recommendations...')
-      const recommendations = await this.processRecommendations(bestSellers, supplierProducts)
+      const recommendations = await this.processRecommendations(limitedBestSellers, supplierProducts)
       
       // Step 5: Save to database
       console.log('💾 Step 5: Saving recommendations to database...')

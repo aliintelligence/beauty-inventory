@@ -32,6 +32,7 @@ export default function RecommendationsPage() {
   const [loading, setLoading] = useState(true)
   const [generating, setGenerating] = useState(false)
   const [insights, setInsights] = useState<any>(null)
+  const [showOptions, setShowOptions] = useState(false)
 
   useEffect(() => {
     loadRecommendations()
@@ -60,23 +61,35 @@ export default function RecommendationsPage() {
     }
   }
 
-  const generateNewRecommendations = async () => {
+  const generateNewRecommendations = async (useCache = true) => {
     setGenerating(true)
     try {
       const response = await fetch('/api/recommendations/generate', {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ useCache, limit: 5 }) // Limit to 5 products for faster generation
       })
       const data = await response.json()
       
       if (data.success) {
         await loadRecommendations()
-        alert(`Generated ${data.count} new recommendations!`)
+        if (data.fromCache) {
+          alert(`Loaded ${data.count} cached recommendations!`)
+        } else {
+          alert(`Generated ${data.count} new recommendations!`)
+        }
       } else {
-        alert('Failed to generate recommendations')
+        if (response.status === 504) {
+          alert('Generation timed out. Try viewing existing recommendations or generate with fewer products.')
+        } else {
+          alert(data.details || 'Failed to generate recommendations')
+        }
       }
     } catch (error) {
       console.error('Error generating recommendations:', error)
-      alert('Error generating recommendations')
+      alert('Error generating recommendations. Please try again.')
     } finally {
       setGenerating(false)
     }
@@ -110,23 +123,63 @@ export default function RecommendationsPage() {
                 <p className="text-sm text-gray-500">Smart sourcing powered by your sales data</p>
               </div>
             </div>
-            <button
-              onClick={generateNewRecommendations}
-              disabled={generating}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors disabled:opacity-50"
-            >
-              {generating ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  <span>Generating...</span>
-                </>
-              ) : (
-                <>
-                  <Brain className="h-4 w-4" />
-                  <span>Generate New</span>
-                </>
+            <div className="relative">
+              <button
+                onClick={() => setShowOptions(!showOptions)}
+                disabled={generating}
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors disabled:opacity-50"
+              >
+                {generating ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <span>Generating...</span>
+                  </>
+                ) : (
+                  <>
+                    <Brain className="h-4 w-4" />
+                    <span>Generate New</span>
+                  </>
+                )}
+              </button>
+              
+              {showOptions && !generating && (
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
+                  <div className="py-1">
+                    <button
+                      onClick={() => {
+                        setShowOptions(false)
+                        generateNewRecommendations(true)
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <div className="font-medium">Quick Generate (Cached)</div>
+                      <div className="text-xs text-gray-500">Use existing data if available</div>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowOptions(false)
+                        generateNewRecommendations(false)
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <div className="font-medium">Fresh Generate</div>
+                      <div className="text-xs text-gray-500">Scrape new data (slower)</div>
+                    </button>
+                    <hr className="my-1" />
+                    <button
+                      onClick={() => {
+                        setShowOptions(false)
+                        loadRecommendations()
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <div className="font-medium">View Existing Only</div>
+                      <div className="text-xs text-gray-500">Show saved recommendations</div>
+                    </button>
+                  </div>
+                </div>
               )}
-            </button>
+            </div>
           </div>
         </div>
       </div>

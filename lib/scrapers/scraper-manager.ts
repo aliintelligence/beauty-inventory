@@ -126,7 +126,13 @@ export class ScraperManager {
       try {
         console.log(`🔄 ${platform} scraping attempt ${attempt}/${this.config.maxRetries}`)
         
-        const result = await scraper.scrapeProducts(keywords)
+        // Add timeout protection (15 seconds per attempt)
+        const timeoutPromise = new Promise<ScrapingResult>((_, reject) => {
+          setTimeout(() => reject(new Error(`${platform} scraping timeout`)), 15000)
+        })
+        
+        const scrapePromise = scraper.scrapeProducts(keywords)
+        const result = await Promise.race([scrapePromise, timeoutPromise])
         
         // If we got some products, consider it a success even if there were partial errors
         if (result.products.length > 0) {

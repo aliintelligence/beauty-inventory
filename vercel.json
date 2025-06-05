@@ -1,4 +1,12 @@
 {
+  "functions": {
+    "src/app/api/recommendations/generate/route.ts": {
+      "maxDuration": 60
+    },
+    "src/app/api/cron/daily-recommendations/route.ts": {
+      "maxDuration": 60
+    }
+  },
   "crons": [
     {
       "path": "/api/cron/daily-recommendations",
