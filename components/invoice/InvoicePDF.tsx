@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Image } from '@react-pdf/renderer'
+import { BRAND_COLORS, COMPANY_INFO } from './LogoData'
 
 // Create styles for the PDF
 const styles = StyleSheet.create({

@@ -1,0 +1,74 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#gradient1)" stroke="url(#gradient2)" stroke-width="10"/>
+  
+  <!-- Gradient Definitions -->
+  <defs>
+    <!-- Main background gradient -->
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EC4899;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9333EA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Border gradient -->
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#FBBF24;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <!-- Text gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FDF2F8;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Drop shadow filter -->
+    <filter id="dropshadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Decorative Elements -->
+  <!-- Stars -->
+  <g fill="#FBBF24" opacity="0.7">
+    <polygon points="50,40 52,46 58,46 53,50 55,56 50,52 45,56 47,50 42,46 48,46" />
+    <polygon points="150,60 152,66 158,66 153,70 155,76 150,72 145,76 147,70 142,66 148,66" />
+    <polygon points="40,140 42,146 48,146 43,150 45,156 40,152 35,156 37,150 32,146 38,146" />
+    <polygon points="160,130 162,136 168,136 163,140 165,146 160,142 155,146 157,140 152,136 158,136" />
+  </g>
+  
+  <!-- Hearts -->
+  <g fill="#F472B6" opacity="0.6">
+    <!-- Small hearts around the logo -->
+    <path d="M30,80 C30,75 35,70 40,70 C45,70 50,75 50,80 C50,85 40,95 40,95 C40,95 30,85 30,80 Z" />
+    <path d="M150,170 C150,165 155,160 160,160 C165,160 170,165 170,170 C170,175 160,185 160,185 C160,185 150,175 150,170 Z" />
+  </g>
+  
+  <!-- Main Text -->
+  <g filter="url(#dropshadow)">
+    <!-- G -->
+    <text x="70" y="130" font-family="Arial Black, sans-serif" font-size="72" font-weight="900" fill="url(#textGradient)" text-anchor="start">G</text>
+    <!-- a -->
+    <text x="125" y="130" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#FBBF24" text-anchor="start">a</text>
+  </g>
+  
+  <!-- Sparkles around text -->
+  <g fill="#FFFFFF" opacity="0.9">
+    <circle cx="80" cy="70" r="2" />
+    <circle cx="140" cy="85" r="1.5" />
+    <circle cx="90" cy="160" r="2" />
+    <circle cx="135" cy="145" r="1.5" />
+    <circle cx="110" cy="65" r="1" />
+    <circle cx="120" cy="160" r="1" />
+  </g>
+  
+  <!-- Additional sparkle lines -->
+  <g stroke="#FFFFFF" stroke-width="2" opacity="0.8" fill="none">
+    <line x1="75" y1="75" x2="85" y2="65" />
+    <line x1="85" y1="75" x2="75" y2="65" />
+    <line x1="130" y1="90" x2="140" y2="80" />
+    <line x1="140" y1="90" x2="130" y2="80" />
+  </g>
+</svg>
