@@ -245,7 +245,7 @@ export default function NewOrderPage() {
                 placeholder="Customer Name"
                 value={customerInfo.customer_name}
                 onChange={handleCustomerInfoChange}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
               />
               <input
                 type="tel"
@@ -253,7 +253,7 @@ export default function NewOrderPage() {
                 placeholder="Phone Number"
                 value={customerInfo.customer_phone}
                 onChange={handleCustomerInfoChange}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
               />
               <div className="relative">
                 <div className="flex items-center">
@@ -271,7 +271,7 @@ export default function NewOrderPage() {
                         setShowLocationDropdown(suggestions.length > 0)
                       }
                     }}
-                    className="w-full pl-10 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full pl-10 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
                   />
                 </div>
                 {showLocationDropdown && locationSuggestions.length > 0 && (

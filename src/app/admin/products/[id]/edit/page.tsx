@@ -183,7 +183,7 @@ export default function EditProductPage() {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="e.g., Rose Gold Rhinestone Set"
               />
             </div>
@@ -198,7 +198,7 @@ export default function EditProductPage() {
                 name="sku"
                 value={formData.sku}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="e.g., RG-RHINE-001"
               />
             </div>
@@ -234,7 +234,7 @@ export default function EditProductPage() {
                 min="0"
                 value={formData.price}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="0.00"
               />
             </div>
@@ -252,7 +252,7 @@ export default function EditProductPage() {
                 min="0"
                 value={formData.cost}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="0.00"
               />
             </div>
@@ -269,7 +269,7 @@ export default function EditProductPage() {
                 min="0"
                 value={formData.customs_cost}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="0.00"
               />
             </div>
@@ -289,7 +289,7 @@ export default function EditProductPage() {
                 min="0"
                 value={formData.inventory_quantity}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="0"
               />
             </div>
@@ -303,7 +303,7 @@ export default function EditProductPage() {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
               >
                 <option value="">Select Category</option>
                 <option value="nail-accessories">Nail Accessories</option>
@@ -328,7 +328,7 @@ export default function EditProductPage() {
                 name="supplier"
                 value={formData.supplier}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="e.g., Alibaba Store Name"
               />
             </div>
@@ -345,7 +345,7 @@ export default function EditProductPage() {
                 min="0"
                 value={formData.weight}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="0.0"
               />
             </div>
@@ -362,7 +362,7 @@ export default function EditProductPage() {
                 name="color"
                 value={formData.color}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="e.g., Rose Gold"
               />
             </div>
@@ -377,7 +377,7 @@ export default function EditProductPage() {
                 name="material"
                 value={formData.material}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="e.g., Rhinestone, Metal"
               />
             </div>
@@ -392,7 +392,7 @@ export default function EditProductPage() {
                 name="dimensions"
                 value={formData.dimensions}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="e.g., 5mm x 3mm"
               />
             </div>

@@ -90,7 +90,7 @@ export default function NewProductPage() {
               required
               value={formData.name}
               onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
               placeholder="e.g., Rhinestone Picker, Nail Art Brushes, Gel Tips"
             />
           </div>
@@ -105,7 +105,7 @@ export default function NewProductPage() {
               rows={3}
               value={formData.description}
               onChange={handleChange}
-              className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
               placeholder="Product description..."
             />
           </div>
@@ -185,7 +185,7 @@ export default function NewProductPage() {
                 min="0"
                 value={formData.inventory_quantity}
                 onChange={handleChange}
-                className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="mt-1 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
                 placeholder="0"
               />
             </div>
