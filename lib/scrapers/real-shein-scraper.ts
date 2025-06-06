@@ -312,22 +312,22 @@ export class RealSheinScraper extends BaseScraper {
       {
         prefix: 'Trendy',
         suffix: 'Essentials',
-        priceRange: [0.99, 8.99]
+        priceRange: [8.99, 18.99]
       },
       {
         prefix: 'Aesthetic',
         suffix: 'Collection',
-        priceRange: [1.49, 12.99]
+        priceRange: [12.99, 24.99]
       },
       {
         prefix: 'Cute',
         suffix: 'Set',
-        priceRange: [1.99, 15.99]
+        priceRange: [15.99, 28.99]
       },
       {
         prefix: 'Fashion',
         suffix: 'Kit',
-        priceRange: [2.49, 18.99]
+        priceRange: [18.99, 35.99]
       }
     ]
     

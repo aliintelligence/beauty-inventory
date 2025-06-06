@@ -127,7 +127,7 @@ export abstract class BaseScraper {
         external_id: `${platform.toUpperCase()}_${Date.now()}_1`,
         name: `Professional ${keyword} Tool Set`,
         description: `High-quality ${keyword} tools for professional nail art`,
-        price: Math.random() * 20 + 5,
+        price: Math.random() * 25 + 15, // $15-40
         original_currency: 'USD',
         supplier_name: `${platform} Beauty Supplies`,
         supplier_rating: 3.5 + Math.random() * 1.5,
@@ -142,7 +142,7 @@ export abstract class BaseScraper {
         external_id: `${platform.toUpperCase()}_${Date.now()}_2`,
         name: `${keyword} Starter Kit`,
         description: `Complete starter kit for ${keyword} beginners`,
-        price: Math.random() * 15 + 3,
+        price: Math.random() * 20 + 10, // $10-30
         original_currency: 'USD',
         supplier_name: `${platform} Starter Co`,
         supplier_rating: 3.0 + Math.random() * 2,

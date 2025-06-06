@@ -307,22 +307,22 @@ export class RealTemuScraper extends BaseScraper {
       {
         prefix: 'Cute',
         suffix: 'Set',
-        priceRange: [1.99, 12.99]
+        priceRange: [12.99, 25.99]
       },
       {
         prefix: 'Aesthetic',
         suffix: 'Kit',
-        priceRange: [2.99, 15.99]
+        priceRange: [15.99, 28.99]
       },
       {
         prefix: 'Trendy',
         suffix: 'Collection',
-        priceRange: [3.99, 18.99]
+        priceRange: [18.99, 32.99]
       },
       {
         prefix: 'Viral',
         suffix: 'Bundle',
-        priceRange: [1.49, 9.99]
+        priceRange: [9.99, 22.99]
       }
     ]
     
