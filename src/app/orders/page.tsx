@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase } from '../../../lib/supabase'
 import { Plus, Eye, Calendar, DollarSign } from 'lucide-react'
+import InvoicePDF from '../../../components/invoice/InvoicePDF'
 
 interface Order {
   id: string
@@ -158,6 +159,11 @@ export default function OrdersPage() {
                 <span className="text-lg font-semibold text-gray-900">Total:</span>
                 <span className="text-lg font-semibold text-gray-900">${order.total_amount.toFixed(2)}</span>
               </div>
+            </div>
+
+            {/* Invoice Download */}
+            <div className="flex justify-end mt-4 pt-4 border-t border-gray-100">
+              <InvoicePDF orderData={order} />
             </div>
           </div>
         ))}
