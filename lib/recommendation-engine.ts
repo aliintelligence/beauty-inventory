@@ -91,6 +91,7 @@ export class RecommendationEngine {
       
       // Process top 3 matches per product
       const topMatches = similarProducts.slice(0, 3)
+      console.log(`Found ${topMatches.length} matches for ${bestSeller.name}`)
       
       for (const match of topMatches) {
         try {
@@ -109,7 +110,8 @@ export class RecommendationEngine {
           )
           
           // Only include profitable recommendations
-          if (profitAnalysis.margin_percent > 25) { // Minimum 25% margin
+          console.log(`Profit margin for ${match.supplier_product.name}: ${profitAnalysis.margin_percent.toFixed(1)}%`)
+          if (profitAnalysis.margin_percent > 10) { // Lowered from 25% to 10% for testing
             const recommendation: ProductRecommendation = {
               id: crypto.randomUUID(),
               supplier_product: match.supplier_product,
