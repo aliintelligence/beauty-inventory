@@ -1,39 +1,11 @@
-'use client'
-
 import Link from 'next/link'
-import { useAuth } from '../../../components/AuthProvider'
-import { useEffect, useState } from 'react'
-import LoginForm from '../../../components/LoginForm'
 import GUrlAestheticLogo from '../../../components/GUrlAestheticLogo'
-import { LogOut } from 'lucide-react'
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { isAuthenticated, logout } = useAuth()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600"></div>
-      </div>
-    )
-  }
-
-  if (!isAuthenticated) {
-    return <LoginForm />
-  }
-
-  const handleLogout = () => {
-    logout()
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50">
@@ -70,13 +42,6 @@ export default function AdminLayout({
               >
                 View Site
               </Link>
-              <button
-                onClick={handleLogout}
-                className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium flex items-center space-x-1"
-              >
-                <LogOut className="h-4 w-4" />
-                <span>Logout</span>
-              </button>
             </div>
           </div>
         </div>
