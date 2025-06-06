@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Image, Svg, Circle, Path } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer'
 
 // Create styles for the PDF
 const styles = StyleSheet.create({
@@ -306,7 +306,7 @@ const InvoiceDocument: React.FC<{ orderData: InvoiceData }> = ({ orderData }) =>
         <Text style={styles.footerText}>
           Thank you for choosing Gurl Aesthetic! We appreciate your support of our{'\n'}
           nail art and beauty business. For any questions about your order,{'\n'}
-          please don't hesitate to contact us.
+          please don&apos;t hesitate to contact us.
         </Text>
         <Text style={styles.footerText}>
           💅 Stay gorgeous! 💅
@@ -326,7 +326,7 @@ const InvoicePDF: React.FC<InvoicePDFProps> = ({ orderData }) => {
       fileName={fileName}
       className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg hover:from-pink-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
     >
-      {({ blob, url, loading, error }) =>
+      {({ loading }) =>
         loading ? (
           <>
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
