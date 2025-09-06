@@ -9,9 +9,16 @@ ADD COLUMN IF NOT EXISTS order_status VARCHAR(50) DEFAULT 'received';
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(order_status);
 
 -- Set up check constraint to ensure valid statuses only
-ALTER TABLE orders 
-ADD CONSTRAINT IF NOT EXISTS check_order_status 
-CHECK (order_status IN ('received', 'packed', 'shipped', 'paid'));
+DO $$ 
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint WHERE conname = 'check_order_status'
+  ) THEN
+    ALTER TABLE orders 
+    ADD CONSTRAINT check_order_status 
+    CHECK (order_status IN ('received', 'packed', 'shipped', 'paid'));
+  END IF;
+END $$;
 
 -- Update existing orders to have 'paid' status since they're completed orders
 UPDATE orders 
