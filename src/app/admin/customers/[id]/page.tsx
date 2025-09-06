@@ -269,7 +269,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                     type="text"
                     value={editedCustomer?.name || ''}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                   />
                 </div>
                 
@@ -279,7 +279,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                     type="text"
                     value={editedCustomer?.phone || ''}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, phone: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                   />
                 </div>
                 
@@ -289,7 +289,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                     type="email"
                     value={editedCustomer?.email || ''}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, email: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                   />
                 </div>
                 
@@ -299,7 +299,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                     type="text"
                     value={editedCustomer?.instagram_handle || ''}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, instagram_handle: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                     placeholder="@username"
                   />
                 </div>
@@ -309,7 +309,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                   <textarea
                     value={editedCustomer?.address || ''}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, address: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                     rows={3}
                   />
                 </div>
@@ -319,7 +319,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                   <select
                     value={editedCustomer?.customer_type || 'regular'}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, customer_type: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                   >
                     <option value="regular">Regular</option>
                     <option value="vip">VIP</option>
@@ -333,7 +333,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                     type="text"
                     value={editedCustomer?.preferred_payment_method || ''}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, preferred_payment_method: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                     placeholder="Cash, Transfer, Linx, etc."
                   />
                 </div>
@@ -343,7 +343,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                   <textarea
                     value={editedCustomer?.notes || ''}
                     onChange={(e) => setEditedCustomer({...editedCustomer!, notes: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 text-gray-900"
                     rows={3}
                     placeholder="Special preferences, notes, etc."
                   />

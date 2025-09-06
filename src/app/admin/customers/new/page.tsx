@@ -92,7 +92,7 @@ export default function NewCustomerPage() {
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="Customer name"
                 required
               />
@@ -106,7 +106,7 @@ export default function NewCustomerPage() {
                 id="customer_type"
                 value={formData.customer_type}
                 onChange={(e) => setFormData({...formData, customer_type: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
               >
                 <option value="regular">Regular</option>
                 <option value="vip">VIP</option>
@@ -134,7 +134,7 @@ export default function NewCustomerPage() {
                 id="phone"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="868-123-4567"
               />
             </div>
@@ -149,7 +149,7 @@ export default function NewCustomerPage() {
                 id="email"
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="customer@example.com"
               />
             </div>
@@ -164,7 +164,7 @@ export default function NewCustomerPage() {
                 id="instagram"
                 value={formData.instagram_handle}
                 onChange={(e) => setFormData({...formData, instagram_handle: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="@username"
               />
             </div>
@@ -179,7 +179,7 @@ export default function NewCustomerPage() {
                 id="payment"
                 value={formData.preferred_payment_method}
                 onChange={(e) => setFormData({...formData, preferred_payment_method: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
                 placeholder="Cash, Transfer, Linx, etc."
               />
             </div>
@@ -194,7 +194,7 @@ export default function NewCustomerPage() {
               id="address"
               value={formData.address}
               onChange={(e) => setFormData({...formData, address: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
               rows={3}
               placeholder="Full delivery address"
             />
@@ -216,7 +216,7 @@ export default function NewCustomerPage() {
               id="notes"
               value={formData.notes}
               onChange={(e) => setFormData({...formData, notes: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
               rows={4}
               placeholder="Special preferences, allergies, favorite products, etc."
             />

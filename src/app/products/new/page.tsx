@@ -126,7 +126,7 @@ export default function NewProductPage() {
                   min="0"
                   value={formData.price}
                   onChange={handleChange}
-                  className="pl-8 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="pl-8 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
                   placeholder="0.00"
                 />
               </div>
@@ -147,7 +147,7 @@ export default function NewProductPage() {
                   min="0"
                   value={formData.cost}
                   onChange={handleChange}
-                  className="pl-8 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="pl-8 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
                   placeholder="0.00"
                 />
               </div>
@@ -167,7 +167,7 @@ export default function NewProductPage() {
                   min="0"
                   value={formData.customs_cost}
                   onChange={handleChange}
-                  className="pl-8 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="pl-8 block w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-gray-900"
                   placeholder="0.00"
                 />
               </div>
