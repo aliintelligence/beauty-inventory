@@ -98,7 +98,7 @@ export default function OrdersPage() {
   }
 
   const handleStatusChange = (orderId: string, newStatus: string, currentStatus: string) => {
-    const actionDescriptions = {
+    const actionDescriptions: { [key: string]: string } = {
       'packed': 'pack this order (inventory will be reduced)',
       'shipped': 'mark this order as shipped',
       'paid': 'mark this order as paid',
@@ -139,7 +139,8 @@ export default function OrdersPage() {
       await fetchOrders()
     } catch (error) {
       console.error('Error updating order status:', error)
-      alert('Failed to update order status: ' + error.message)
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      alert('Failed to update order status: ' + errorMessage)
     } finally {
       setUpdating(null)
     }
@@ -235,9 +236,9 @@ export default function OrdersPage() {
   const getInventoryIcon = (order: Order) => {
     if (order.order_status === 'received') {
       if (order.can_be_packed) {
-        return <CheckSquare className="h-4 w-4 text-green-600" title="Inventory available" />
+        return <div title="Inventory available"><CheckSquare className="h-4 w-4 text-green-600" /></div>
       } else {
-        return <AlertTriangle className="h-4 w-4 text-red-600" title={`${order.items_with_shortage} items have insufficient stock`} />
+        return <div title={`${order.items_with_shortage} items have insufficient stock`}><AlertTriangle className="h-4 w-4 text-red-600" /></div>
       }
     }
     return null
