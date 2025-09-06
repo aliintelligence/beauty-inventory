@@ -9,11 +9,11 @@ CREATE TABLE IF NOT EXISTS customers (
   notes TEXT,
   total_spent DECIMAL(10,2) DEFAULT 0,
   order_count INTEGER DEFAULT 0,
-  last_order_date TIMESTAMP WITH TIME ZONE,
+  last_order_date TIMESTAMPTZ,
   preferred_payment_method VARCHAR(50),
-  customer_type VARCHAR(50) DEFAULT 'regular', -- regular, vip, wholesale
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  customer_type VARCHAR(50) DEFAULT 'regular',
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Add customer_id to orders table
@@ -33,10 +33,11 @@ SELECT
   COUNT(DISTINCT o.id) as actual_order_count,
   COALESCE(SUM(o.total_amount), 0) as actual_total_spent,
   MAX(o.created_at) as actual_last_order_date,
-  ARRAY_AGG(DISTINCT oi.products ORDER BY oi.products) FILTER (WHERE oi.products IS NOT NULL) as purchased_products
+  ARRAY_AGG(DISTINCT p.name ORDER BY p.name) FILTER (WHERE p.name IS NOT NULL) as purchased_products
 FROM customers c
 LEFT JOIN orders o ON c.id = o.customer_id
 LEFT JOIN order_items oi ON o.id = oi.order_id
+LEFT JOIN products p ON oi.product_id = p.id
 GROUP BY c.id;
 
 -- Create trigger to update customer stats when orders are created/updated

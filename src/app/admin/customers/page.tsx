@@ -14,7 +14,6 @@ import {
   DollarSign,
   ShoppingBag,
   Calendar,
-  Star,
   TrendingUp,
   Crown
 } from 'lucide-react'
@@ -39,7 +38,6 @@ export default function CustomersPage() {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterType, setFilterType] = useState('all')
-  const [showNewCustomerModal, setShowNewCustomerModal] = useState(false)
 
   useEffect(() => {
     fetchCustomers()

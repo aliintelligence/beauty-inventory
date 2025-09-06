@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '../../../../../../lib/supabase'
@@ -48,13 +48,7 @@ export default function EditProductPage() {
     material: ''
   })
 
-  useEffect(() => {
-    if (productId) {
-      fetchProduct()
-    }
-  }, [productId])
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       const { data, error } = await supabase
         .from('products')
@@ -86,7 +80,13 @@ export default function EditProductPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [productId])
+
+  useEffect(() => {
+    if (productId) {
+      fetchProduct()
+    }
+  }, [productId, fetchProduct])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

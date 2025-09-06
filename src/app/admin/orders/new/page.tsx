@@ -53,7 +53,6 @@ function NewOrderContent() {
   const [showLocationDropdown, setShowLocationDropdown] = useState(false)
   const [loading, setLoading] = useState(false)
   const [productsLoading, setProductsLoading] = useState(true)
-  const [customersLoading, setCustomersLoading] = useState(true)
 
   useEffect(() => {
     fetchProducts()
@@ -81,7 +80,7 @@ function NewOrderContent() {
     } catch (error) {
       console.error('Error fetching customers:', error)
     } finally {
-      setCustomersLoading(false)
+      // Customers loaded
     }
   }
 

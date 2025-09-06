@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect, use, useCallback } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { supabase } from '../../../../../lib/supabase'
@@ -8,7 +8,6 @@ import { formatCurrency } from '../../../../../lib/currency'
 import InvoicePDF from '../../../../../components/invoice/InvoicePDF'
 import { 
   ArrowLeft,
-  User,
   Phone,
   Mail,
   Instagram,
@@ -19,8 +18,6 @@ import {
   Edit,
   Plus,
   TrendingUp,
-  Package,
-  Clock,
   Star,
   Crown,
   MessageSquare
@@ -73,13 +70,12 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   const [loading, setLoading] = useState(true)
   const [editMode, setEditMode] = useState(false)
   const [editedCustomer, setEditedCustomer] = useState<CustomerDetail | null>(null)
-  const router = useRouter()
 
   useEffect(() => {
     fetchCustomerData()
-  }, [resolvedParams.id])
+  }, [resolvedParams.id, fetchCustomerData])
 
-  const fetchCustomerData = async () => {
+  const fetchCustomerData = useCallback(async () => {
     try {
       // Fetch customer details
       const { data: customerData, error: customerError } = await supabase
@@ -135,7 +131,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
     } finally {
       setLoading(false)
     }
-  }
+  }, [resolvedParams.id])
 
   const handleSave = async () => {
     if (!editedCustomer) return
