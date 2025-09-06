@@ -2,7 +2,6 @@
 
 import { useState, useEffect, use, useCallback } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { supabase } from '../../../../../lib/supabase'
 import { formatCurrency } from '../../../../../lib/currency'
 import InvoicePDF from '../../../../../components/invoice/InvoicePDF'
