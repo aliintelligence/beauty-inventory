@@ -70,10 +70,6 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   const [editMode, setEditMode] = useState(false)
   const [editedCustomer, setEditedCustomer] = useState<CustomerDetail | null>(null)
 
-  useEffect(() => {
-    fetchCustomerData()
-  }, [resolvedParams.id, fetchCustomerData])
-
   const fetchCustomerData = useCallback(async () => {
     try {
       // Fetch customer details
@@ -131,6 +127,10 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
       setLoading(false)
     }
   }, [resolvedParams.id])
+
+  useEffect(() => {
+    fetchCustomerData()
+  }, [fetchCustomerData])
 
   const handleSave = async () => {
     if (!editedCustomer) return
