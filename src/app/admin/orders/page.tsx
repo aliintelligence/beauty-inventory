@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase } from '../../../../lib/supabase'
 import { formatCurrency } from '../../../../lib/currency'
-import { Plus, Eye, Calendar, DollarSign, Trash2 } from 'lucide-react'
+import { Plus, Eye, Calendar, DollarSign, Trash2, Package, Truck, CheckCircle, Clock } from 'lucide-react'
 import InvoicePDF from '../../../../components/invoice/InvoicePDF'
 
 interface Order {
@@ -14,6 +14,7 @@ interface Order {
   customer_address: string | null
   total_amount: number
   created_at: string
+  order_status: string
   order_items: {
     quantity: number
     unit_price: number
@@ -27,10 +28,62 @@ interface Order {
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const [statusFilter, setStatusFilter] = useState('all')
+  const [updating, setUpdating] = useState<string | null>(null)
 
   useEffect(() => {
     fetchOrders()
   }, [])
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'received': return <Clock className="h-4 w-4" />
+      case 'packed': return <Package className="h-4 w-4" />
+      case 'shipped': return <Truck className="h-4 w-4" />
+      case 'paid': return <CheckCircle className="h-4 w-4" />
+      default: return <Clock className="h-4 w-4" />
+    }
+  }
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'received': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
+      case 'packed': return 'bg-blue-100 text-blue-800 border-blue-200'
+      case 'shipped': return 'bg-purple-100 text-purple-800 border-purple-200'
+      case 'paid': return 'bg-green-100 text-green-800 border-green-200'
+      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+    }
+  }
+
+  const getNextStatus = (currentStatus: string) => {
+    switch (currentStatus) {
+      case 'received': return 'packed'
+      case 'packed': return 'shipped'
+      case 'shipped': return 'paid'
+      case 'paid': return 'paid' // Already final
+      default: return 'received'
+    }
+  }
+
+  const updateOrderStatus = async (orderId: string, newStatus: string) => {
+    setUpdating(orderId)
+    try {
+      const { error } = await supabase
+        .from('orders')
+        .update({ order_status: newStatus })
+        .eq('id', orderId)
+
+      if (error) throw error
+      
+      // Refresh orders list
+      await fetchOrders()
+    } catch (error) {
+      console.error('Error updating order status:', error)
+      alert('Failed to update order status')
+    } finally {
+      setUpdating(null)
+    }
+  }
 
   const fetchOrders = async () => {
     try {
@@ -57,6 +110,10 @@ export default function OrdersPage() {
       setLoading(false)
     }
   }
+
+  const filteredOrders = orders.filter(order => 
+    statusFilter === 'all' || order.order_status === statusFilter
+  )
 
   const deleteOrder = async (orderId: string, _orderItems: any[]) => {
     const orderNumber = orderId.slice(-8).toUpperCase()
@@ -122,9 +179,30 @@ export default function OrdersPage() {
         </Link>
       </div>
 
+      {/* Status Filter */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <div className="flex items-center space-x-4">
+          <label className="text-sm font-medium text-gray-700">Filter by Status:</label>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900"
+          >
+            <option value="all">All Orders ({orders.length})</option>
+            <option value="received">Received ({orders.filter(o => o.order_status === 'received').length})</option>
+            <option value="packed">Packed ({orders.filter(o => o.order_status === 'packed').length})</option>
+            <option value="shipped">Shipped ({orders.filter(o => o.order_status === 'shipped').length})</option>
+            <option value="paid">Paid ({orders.filter(o => o.order_status === 'paid').length})</option>
+          </select>
+          <div className="text-sm text-gray-500">
+            Showing {filteredOrders.length} of {orders.length} orders
+          </div>
+        </div>
+      </div>
+
       {/* Orders List */}
       <div className="space-y-4">
-        {orders.map((order) => (
+        {filteredOrders.map((order) => (
           <div key={order.id} className="bg-white rounded-lg shadow p-6">
             <div className="flex justify-between items-start mb-4">
               <div className="flex-1">
@@ -132,8 +210,9 @@ export default function OrdersPage() {
                   <h3 className="text-lg font-semibold text-gray-900">
                     Order #{order.id.slice(-8).toUpperCase()}
                   </h3>
-                  <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
-                    Completed
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium border flex items-center space-x-1 ${getStatusColor(order.order_status)}`}>
+                    {getStatusIcon(order.order_status)}
+                    <span className="capitalize">{order.order_status}</span>
                   </span>
                 </div>
                 
@@ -198,12 +277,51 @@ export default function OrdersPage() {
               </div>
             </div>
 
-            {/* Invoice Download */}
-            <div className="flex justify-end mt-4 pt-4 border-t border-gray-100">
+            {/* Status Management and Actions */}
+            <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center space-x-2">
+                {order.order_status !== 'paid' && (
+                  <button
+                    onClick={() => updateOrderStatus(order.id, getNextStatus(order.order_status))}
+                    disabled={updating === order.id}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm flex items-center space-x-1 transition-colors disabled:opacity-50"
+                  >
+                    {updating === order.id ? (
+                      <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>
+                    ) : (
+                      getStatusIcon(getNextStatus(order.order_status))
+                    )}
+                    <span>Mark as {getNextStatus(order.order_status)}</span>
+                  </button>
+                )}
+                
+                <select
+                  value={order.order_status}
+                  onChange={(e) => updateOrderStatus(order.id, e.target.value)}
+                  disabled={updating === order.id}
+                  className="px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent text-gray-900 disabled:opacity-50"
+                >
+                  <option value="received">Received</option>
+                  <option value="packed">Packed</option>
+                  <option value="shipped">Shipped</option>
+                  <option value="paid">Paid</option>
+                </select>
+              </div>
+              
               <InvoicePDF orderData={order} />
             </div>
           </div>
         ))}
+
+        {filteredOrders.length === 0 && orders.length > 0 && (
+          <div className="text-center py-12">
+            <div className="bg-white rounded-lg shadow p-8">
+              <Eye className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No orders found</h3>
+              <p className="text-gray-500 mb-4">No orders match the selected status filter</p>
+            </div>
+          </div>
+        )}
 
         {orders.length === 0 && (
           <div className="text-center py-12">

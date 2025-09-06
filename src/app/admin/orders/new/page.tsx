@@ -188,7 +188,7 @@ function NewOrderContent() {
     setLoading(true)
 
     try {
-      // Create order with customer_id
+      // Create order with customer_id and default status
       const { data: orderData, error: orderError } = await supabase
         .from('orders')
         .insert([{
@@ -196,7 +196,8 @@ function NewOrderContent() {
           customer_name: customerInfo.customer_name || null,
           customer_phone: customerInfo.customer_phone || null,
           customer_address: customerInfo.customer_address || null,
-          total_amount: totalAmount
+          total_amount: totalAmount,
+          order_status: 'received'
         }])
         .select()
         .single()
