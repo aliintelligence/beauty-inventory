@@ -21,6 +21,9 @@ export default function AdminLayout({
                 <Link href="/admin" className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium">
                   Dashboard
                 </Link>
+                <Link href="/admin/customers" className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium">
+                  Customers
+                </Link>
                 <Link href="/admin/products" className="text-gray-700 hover:text-pink-600 px-3 py-2 text-sm font-medium">
                   Products
                 </Link>

@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Image } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer'
 import { BRAND_COLORS, COMPANY_INFO } from './LogoData'
 
 // Create styles for the PDF
@@ -38,32 +38,36 @@ const styles = StyleSheet.create({
   logoCircle: {
     width: 60,
     height: 60,
-    backgroundColor: '#EC4899',
+    backgroundColor: BRAND_COLORS.primary,
     borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 15,
-    shadowColor: '#EC4899',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
+    border: `3 solid ${BRAND_COLORS.accent}`,
+    position: 'relative',
   },
   logoText: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: BRAND_COLORS.white,
     fontFamily: 'Helvetica-Bold',
+    textAlign: 'center',
+  },
+  logoImage: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
   },
   companyName: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#EC4899',
+    color: BRAND_COLORS.primary,
     marginBottom: 5,
     fontFamily: 'Helvetica-Bold',
   },
   companyTagline: {
     fontSize: 14,
-    color: '#9333EA',
+    color: BRAND_COLORS.secondary,
     fontStyle: 'italic',
     marginBottom: 12,
   },
@@ -265,10 +269,57 @@ const styles = StyleSheet.create({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%) rotate(-45deg)',
-    fontSize: 100,
+    fontSize: 80,
     color: '#F9FAFB',
-    opacity: 0.1,
+    opacity: 0.05,
     zIndex: -1,
+    fontFamily: 'Helvetica-Bold',
+  },
+  
+  // Decorative border
+  decorativeBorder: {
+    position: 'absolute',
+    top: 15,
+    left: 15,
+    right: 15,
+    bottom: 15,
+    border: `2 solid ${BRAND_COLORS.accent}`,
+    borderRadius: 15,
+    opacity: 0.3,
+    zIndex: -1,
+  },
+  
+  // Corner decorations
+  cornerDecoration: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    backgroundColor: BRAND_COLORS.accent,
+    opacity: 0.2,
+  },
+  
+  topLeftCorner: {
+    top: 10,
+    left: 10,
+    borderRadius: '0 0 15 0',
+  },
+  
+  topRightCorner: {
+    top: 10,
+    right: 10,
+    borderRadius: '0 0 0 15',
+  },
+  
+  bottomLeftCorner: {
+    bottom: 10,
+    left: 10,
+    borderRadius: '0 15 0 0',
+  },
+  
+  bottomRightCorner: {
+    bottom: 10,
+    right: 10,
+    borderRadius: '15 0 0 0',
   },
 })
 
@@ -330,8 +381,15 @@ const InvoiceDocument: React.FC<{ orderData: InvoiceData }> = ({ orderData }) =>
   return (
     <Document>
       <Page size="A4" style={styles.page}>
+        {/* Decorative Elements */}
+        <View style={[styles.decorativeBorder]} />
+        <View style={[styles.cornerDecoration, styles.topLeftCorner]} />
+        <View style={[styles.cornerDecoration, styles.topRightCorner]} />
+        <View style={[styles.cornerDecoration, styles.bottomLeftCorner]} />
+        <View style={[styles.cornerDecoration, styles.bottomRightCorner]} />
+        
         {/* Watermark */}
-        <Text style={styles.watermark}>Gurl Aesthetic</Text>
+        <Text style={styles.watermark}>{COMPANY_INFO.name}</Text>
         
         {/* Header */}
         <View style={styles.header}>
@@ -341,14 +399,15 @@ const InvoiceDocument: React.FC<{ orderData: InvoiceData }> = ({ orderData }) =>
                 <Text style={styles.logoText}>Ga</Text>
               </View>
               <View>
-                <Text style={styles.companyName}>Gurl Aesthetic</Text>
+                <Text style={styles.companyName}>{COMPANY_INFO.name}</Text>
               </View>
             </View>
-            <Text style={styles.companyTagline}>✨ Nail Accessories & Girly Beauty Products ✨</Text>
+            <Text style={styles.companyTagline}>{COMPANY_INFO.tagline}</Text>
             <View style={styles.companyContact}>
-              <Text>Trinidad & Tobago</Text>
-              <Text>Email: info@gurlaesthetic.com</Text>
-              <Text>Phone: +1 (868) 123-4567</Text>
+              <Text>{COMPANY_INFO.address}</Text>
+              <Text>Email: {COMPANY_INFO.email}</Text>
+              <Text>Phone: {COMPANY_INFO.phone}</Text>
+              <Text>Web: {COMPANY_INFO.website}</Text>
             </View>
           </View>
           
@@ -443,7 +502,7 @@ const InvoiceDocument: React.FC<{ orderData: InvoiceData }> = ({ orderData }) =>
             nail art and beauty business. For any questions about your order,
           </Text>
           <Text style={styles.footerText}>
-            please don&apos;t hesitate to contact us at info@gurlaesthetic.com
+            please don&apos;t hesitate to contact us at {COMPANY_INFO.email}
           </Text>
           <Text style={styles.footerText}>
             💅 Stay gorgeous! 💅
